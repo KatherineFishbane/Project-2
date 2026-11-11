@@ -3,86 +3,86 @@ const React = require('react');
 const{ useState, useEffect} = React;
 const { createRoot } = require('react-dom/client');
 
-const handleDomo = (e, onDomoAdded) => {
+const handlePost = (e, onPostAdded) => {
     e.preventDefault();
     helper.hideError();
 
-    const name = e.target.querySelector('#domoName').value;
-    const age = e.target.querySelector('#domoAge').value;
+    const name = e.target.querySelector('#postName').value;
+    const age = e.target.querySelector('#postAge').value;
 
     if(!name || !age){
         helper.handleError('All Fields are required');
         return false;
     }
 
-    helper.sendPost(e.target.action, {name,age}, onDomoAdded);
+    helper.sendPost(e.target.action, {name,age}, onPostAdded);
     return false;
 }
 
-const DomoForm = (props) => {
+const PostForm = (props) => {
     return(
-        <form id="domoForm"
-        onSubmit={(e) => handleDomo(e,props.triggerReload)}
-        name="domoForm"
+        <form id="postForm"
+        onSubmit={(e) => handlePost(e,props.triggerReload)}
+        name="postForm"
         action="/maker"
         method='POST'
-        className='domoForm'
+        className='postForm'
         >
             <label htmlFor='name'>Name: </label>
-            <input id='domoName' type='text' name='name' placeholder='Domo Name' />
+            <input id='postName' type='text' name='name' placeholder='Post Name' />
             <label htmlFor='age'>Age: </label>
-            <input id='domoAge' type='number' min='0' name='age'/>
-            <input className='makeDomoSubmit' type='submit' value='Make Domo' />
+            <input id='postAge' type='number' min='0' name='age'/>
+            <input className='makePostSubmit' type='submit' value='Make Post' />
         </form>
     );
 };
 
-const DomoList = (props) => {
-    const [domos, setDomos]= useState(props.domos);
+const PostList = (props) => {
+    const [posts, setPosts]= useState(props.posts);
 
     useEffect(() => {
-        const loadDomosFromServer = async () => {
-            const response = await fetch('/getDomos');
+        const loadPostsFromServer = async () => {
+            const response = await fetch('/getPosts');
             const data = await response.json();
-            setDomos(data.domos);
+            setPosts(data.posts);
         };
-        loadDomosFromServer();
-    }, [props.reloadDomos]);
-    if(domos.length === 0){
+        loadPostsFromServer();
+    }, [props.reloadPosts]);
+    if(posts.length === 0){
         return(
-            <div className='domoList'>
-                <h3 className="emptyDomo">No Domos Yet!</h3>
+            <div className='postList'>
+                <h3 className="emptyPost">No Posts Yet!</h3>
             </div>
         );
     }
 
-    const domoNodes = domos.map(domo => {
+    const postNodes = posts.map(post => {
         return (
-            <div key={domo.id} className='domo'>
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' />
-                <h3 className='domoName'>Name: {domo.name}</h3>
-                <h3 className='domoAge'>Age: {domo.age}</h3>
-                <h3 className='domoOwner'>This Domo was made by: {domo.owner?.displayName || 'Unknown'}</h3>
+            <div key={post.id} className='post'>
+                <img src="/assets/img/postface.jpeg" alt="post face" className='postFace' />
+                <h3 className='postName'>Name: {post.name}</h3>
+                <h3 className='postAge'>Age: {post.age}</h3>
+                <h3 className='postOwner'>This Post was made by: {post.owner?.displayName || 'Unknown'}</h3>
             </div>
         );
     });
     return (
-        <div className='domoList'>
-            {domoNodes}
+        <div className='postList'>
+            {postNodes}
         </div>
     );
 };
 
 const App = () => {
-    const [reloadDomos, setReloadDomos] = useState(false);
+    const [reloadPosts, setReloadPosts] = useState(false);
 
     return(
         <div>
-            <div id ="makeDomo">
-                <DomoForm triggerReload={() => setReloadDomos(!reloadDomos)} />
+            <div id ="makePost">
+                <PostForm triggerReload={() => setReloadPosts(!reloadPosts)} />
             </div>
-            <div id='domos'>
-                <DomoList domos={[]} reloadDomos={reloadDomos} />
+            <div id='posts'>
+                <PostList posts={[]} reloadPosts={reloadPosts} />
             </div>
         </div>
     );

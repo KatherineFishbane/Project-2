@@ -4,39 +4,39 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
-const DomoList = (props) => {
-    const [domos, setDomos] = useState([]);
+const PostList = (props) => {
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        const loadDomosFromServer = async () => {
-            const response = await fetch('/getUserDomos');
+        const loadPostsFromServer = async () => {
+            const response = await fetch('/getUserPosts');
             const data = await response.json();
-            setDomos(data.domos);
+            setPosts(data.posts);
         };
 
-        loadDomosFromServer(); }, []);
+        loadPostsFromServer(); }, []);
 
-    if (domos.length === 0) {
+    if (posts.length === 0) {
         return (
-            <div className='domoList'>
-                <h3 className="emptyDomo">No Domos Yet!</h3>
+            <div className='PostList'>
+                <h3 className="emptyPost">No Posts Yet!</h3>
             </div>
         );
     }
 
-    const domoNodes = domos.map(domo => {
+    const postNodes = posts.map(post => {
         return (
-            <div key={domo._id} className='domo'>
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' />
-                <h3 className='domoName'>Name: {domo.name}</h3>
-                <h3 className='domoAge'>Age: {domo.age}</h3>
+            <div key={post._id} className='post'>
+                <img src="/assets/img/postface.jpeg" alt="post face" className='postFace' />
+                <h3 className='postName'>Name: {post.name}</h3>
+                <h3 className='postAge'>Age: {post.age}</h3>
             </div>
         );
     });
 
     return (
-        <div className='domoList'>
-            {domoNodes}
+        <div className='postList'>
+            {postNodes}
         </div>
     );
 };
@@ -70,9 +70,9 @@ const Account = () => {
     return (
         <div>
             <AccountInfo />
-            <div id="domos">
-                <h2>My Domos</h2>
-                <DomoList />
+            <div id="posts">
+                <h2>My Posts</h2>
+                <PostList />
             </div>
         </div>
     );
