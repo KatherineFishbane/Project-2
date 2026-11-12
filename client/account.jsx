@@ -28,8 +28,10 @@ const PostList = (props) => {
         return (
             <div key={post._id} className='post'>
                 <img src="/assets/img/postface.jpeg" alt="post face" className='postFace' />
-                <h3 className='postName'>Name: {post.name}</h3>
-                <h3 className='postAge'>Age: {post.age}</h3>
+                <h3 className='songTitle'>Song Title: {post.songTitle}</h3>
+                <h3 className='rating'>Rating: {post.rating}</h3>
+                <h3 className='genre'>Genre: {post.genre}</h3>
+                <p className='description'>Description: {post.description}</p>
             </div>
         );
     });

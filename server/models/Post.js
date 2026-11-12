@@ -4,16 +4,27 @@ const _ = require('underscore');
 const setName = (name) => _.escape(name).trim();
 
 const PostSchema = new mongoose.Schema({
-    name: {
+    songTitle: {
         type: String,
         required: true,
         trim: true,
         set: setName,
     },
-    age: {
+    rating: {
         type: Number,
         min: 0,
+        max: 5,
         required: true,
+    },
+    genre: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    description: {
+        type: String,
+        required: true,
+        trim: true,
     },
     owner: {
         type: mongoose.Schema.ObjectId,
@@ -27,8 +38,10 @@ const PostSchema = new mongoose.Schema({
 });
 
 PostSchema.statics.toAPI = (doc) => ({
-    name: doc.name,
-    age: doc.age,
+    songTitle: doc.songTitle,
+    genre: doc.genre,
+    rating: doc.rating,
+    description: doc.description
 });
 
 const PostModel = mongoose.model('Post', PostSchema);
