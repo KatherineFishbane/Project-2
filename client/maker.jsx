@@ -29,26 +29,33 @@ const handlePost = (e, onPostAdded) => {
 
 const PostForm = (props) => {
     return (
-        <form id="postForm"
+        <form
+            id="postForm"
             onSubmit={(e) => handlePost(e, props.triggerReload)}
             name="postForm"
             action="/maker"
-            method='POST'
-            className='postForm'
+            method="POST"
+            className="postForm"
         >
-            <label htmlFor='songTitle'>Song Title: </label>
-            <input id='songTitle' type='text' name='songTitle' placeholder=' ' />
-            <label htmlFor="genre">Genre: </label>
+            <h2>Write a Review of a song!</h2>
+
+            <label htmlFor="songTitle">Song Title</label>
+            <input id="songTitle" type="text" name="songTitle" placeholder="Enter the song title..."
+            />
+
+            <label htmlFor="genre">Genre</label>
             <select id="genre" name="genre" defaultValue="">
-                <option value="" disabled> </option>
-                {genreList.map((genreType, index) => (
-                    <option key={index} value={genreType}>
+                <option value="" disabled>Choose a genre</option>
+                {genreList.map((genreType) => (
+                    <option key={genreType} value={genreType}>
                         {genreType}
-                    </option>))}
+                    </option>
+                ))}
             </select>
-            <label htmlFor="rating">Rating:</label>
+
+            <label htmlFor="rating">Your Rating</label>
             <select id="rating" name="rating" defaultValue="">
-                <option value="0.0" disabled>0.0</option>
+                <option value="" disabled>Choose a rating</option>
                 <option value="0.5">0.5</option>
                 <option value="1.0">1.0</option>
                 <option value="1.5">1.5</option>
@@ -59,10 +66,13 @@ const PostForm = (props) => {
                 <option value="4.0">4.0</option>
                 <option value="4.5">4.5</option>
                 <option value="5.0">5.0</option>
+
             </select>
-            <label htmlFor='description'>Description: </label>
-            <input id='description' type='text' name='description' placeholder="What did you like, what didn't you? " />
-            <input className='makePostSubmit' type='submit' value='Post' />
+
+            <label htmlFor="description">Your Review</label>
+            <textarea id="description" name="description" placeholder="What did you like? What didn't you like?" rows="4"/>
+
+            <input className="makePostSubmit" type="submit" value="Publish Review"/>
         </form>
     );
 };
@@ -76,30 +86,38 @@ const PostList = (props) => {
             const data = await response.json();
             setPosts(data.posts);
         };
+
         loadPostsFromServer();
     }, [props.reloadPosts]);
+
     if (posts.length === 0) {
         return (
-            <div className='postList'>
-                <h3 className="emptyPost">No Posts Yet!</h3>
+            <div className="postList">
+                <h3 className="emptyPost">No Reviews Yet!</h3>
+                <p>Be the first to share your opinion.</p>
             </div>
         );
     }
 
-    const postNodes = posts.map(post => {
-        return (
-            <div key={post.id} className='post'>
-                <img src="/assets/img/postface.jpeg" alt="post face" className='postFace' />
-                <h3 className='songTitle'>Song Title: {post.songTitle}</h3>
-                <h3 className='rating'>Rating: {post.rating}</h3>
-                <h3 className='genre'>Genre: {post.genre}</h3>
-                <p className='description'>{post.description}</p>
-                <h3 className='postOwner'>This review was made by: {post.owner?.displayName || 'Unknown'}</h3>
+    const postNodes = posts.map(post => (
+        <div key={post._id || post.id} className="post reviewCard">
+            <h3 className="songTitle">{post.songTitle}</h3>
+
+            <div className="reviewDetails">
+                <span className="genre">{post.genre}</span>
+                <span className="rating">★ {post.rating} / 5</span>
             </div>
-        );
-    });
+
+            <p className="description">{post.description}</p>
+
+            <p className="postOwner">
+                Reviewed by: {post.owner?.displayName || 'Unknown'}
+            </p>
+        </div>
+    ));
+
     return (
-        <div className='postList'>
+        <div className="postList">
             {postNodes}
         </div>
     );
@@ -111,9 +129,12 @@ const App = () => {
     return (
         <div>
             <div id="makePost">
-                <PostForm triggerReload={() => setReloadPosts(!reloadPosts)} />
+                <PostForm
+                    triggerReload={() => setReloadPosts(!reloadPosts)}
+                />
             </div>
-            <div id='posts'>
+
+            <div id="posts">
                 <PostList posts={[]} reloadPosts={reloadPosts} />
             </div>
         </div>

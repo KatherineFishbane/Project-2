@@ -1,265 +1,166 @@
-html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
 
-#logo {
-    height: 40px;
-    width: 40;
-    padding-top: 5px;
-    float:left;
-    border-radius: 8px;
-}
-
-nav {
-    width: 100%;
-    height: 50px;
-    background-color: #55acee;
-}
-
-nav:nth-child(1) {
-    padding-left: 25px;
-}
-
-.navlink {
-    padding: 5px;
-    padding-top: 12px;
-    padding-left: 20px;
-    color: white;
-    font-size: 1.3em;
-    float: left;
-}
-
-.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
-    color: white;
-    text-decoration: none;
-    padding: 5px;
-    border-radius: 4px;
-    background-color: #55acee;
-    transition: background-color 0.4s ease;
-}
-
-.navlink a:hover {
-    transition: background-color 0.8s ease;
-    background-color: #66bdff;
-}
-
-.postForm {
-    border: 2px solid #338acc;
-    height: 35px;
-    width: 700px;
-    margin-top:0px;
-    padding-top:10px;
-    background-color: #55acee;
-    border-bottom-right-radius: 4px;
-    border-top-right-radius: 4px;
-}
-
-.postForm label {
-    display: inline-block;
-    width: 75px;
-    margin-left: 10px;
-    font-size: 1.2em;
-    float: left;
-    color: white;
-}
-
-.postForm input[type=text] {
-    float:left;
-}
-
-.makePostSubmit {
-    transition: background-color 0.4s ease;
-    display: inline;
-    width: 90px;
-    background-color: #55acee;
-    border-radius: 2px;
-    color: white;
-    text-decoration: none;
-}
-
-.makePostSubmit:link, .makePostSubmit:visited, .makePostSubmit:hover, .makePostSubmit:active {
-    color: white;
-}
-
-.makePostSubmit:hover {
-    transition: background-color 0.4s ease;
-    background-color: #338acc;
-}
-
-.mainForm {
-    height: 300px;
-    width: 350px;
-    margin: 0 auto;
-    padding-top: 350px;
-    font-size: 1.2em;
-}
-
-.mainForm h3 {
-    text-align: center;
-}
-
-.mainForm label {
-    display: inline-block;
-    width: 150px;
-    margin-right: 10px;
-    text-align: right;
-    font-size: 1.2em;
-}
-
-.formSubmit {
-    transition: background-color 0.4s ease;
-    display: block;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 14px;
-    font-size: 1.2em;
-    width: 100px;
-    background-color: #55acee;
-    border-radius: 2px;
-    border-color: #66acee;
-    padding: 3px 0px;
-    color: white;
-    text-decoration: none;
-}
-
-.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
-    color: white;
-}
-
-.formSubmit:hover {
-    transition: background-color 0.4s ease;
-    background-color: #338acc;
-}
-
-#user, #pass, #pass2, #displayName {
-    text-align: center;
-    font-size: 1.1em;
-    width: 180px;
-    border-radius: 6px;
-}
-
-#user:focus, #pass:focus, #pass2:focus {
-    outline: none;
-    box-shadow: 0px 0px 1px 1px #55acee;
+* {
+    box-sizing: border-box;
 }
 
 .hidden {
     display: none;
 }
 
-#postMessage {
-    top: 250px;
-    width: 250px;
-    height: 650px;
-    position: absolute;
-    z-index: 200;
-    right: 0px;
-    overflow: hidden;
+.postForm {
+    width: 90%;
+    max-width: 650px;
+    height: auto;
+    margin: 30px auto;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    background: #f3efea;
+    border: 2px solid #338acc;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(37, 21, 2, 0.08);
 }
 
-#postMessage h3 {
-    width: 200px;
-    position: absolute;
-    top: 0px;
-    left: 20px;
+.postForm h2 {
+    margin: 0;
+    color: #2e1800;
 }
 
-#speech {
-    height: 120px;
-    width: 250px;
-    z-index:300;
+.postForm p {
+    margin: 0 0 10px;
+    color: #8c4d01;
 }
 
-#errorMessage {
-    font-size: 1.2em;
+.postForm label {
+    display: block;
+    float: none;
+    width: auto;
+    margin: 8px 0 0;
+    color: #4e2d00;
+    font-size: 1em;
     font-weight: bold;
-    color: red;
-    font-style: italic;
 }
 
-#post {
-    z-index: 225;
-    margin-top: -20px;
-    margin-left: 135px;
-    height: 450px;
-    width: 300px;
-    -ms-transform: rotate(330deg);
-    -webkit-transform: rotate(330deg); 
-    transform: rotate(330deg);
+.postForm input,
+.postForm select,
+.postForm textarea {
+    display: block;
+    float: none;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #97c9db;
+    border-radius: 7px;
+    background: #f3efea;
+    font: inherit;
+    color: #070034;
 }
 
+.postForm textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.postForm input:focus,
+.postForm select:focus,
+.postForm textarea:focus {
+    outline: none;
+    border-color: #338acc;
+    box-shadow: 0 0 4px rgba(51, 138, 204, 0.35);
+}
+
+.makePostSubmit {
+    display: block;
+    float: none;
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px;
+
+    background: #efac26;
+    color: #f3efea;
+    border: none;
+    border-radius: 7px;
+
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.makePostSubmit:hover {
+    background: #d79515;
+}
+
+/* Reviews container */
 #posts {
-    width: 40%;
-    min-width: 400px;
+    width: 90%;
+    max-width: 750px;
+    min-width: 0;
+    margin: 35px auto;
+    padding: 12px;
     border: 2px solid #55acee;
-    border-radius: 4px;
-    margin: 0 auto;
-    margin-top: 100px;
+    border-radius: 8px;
 }
 
-.post {
-    width: 95%;
-    margin: 0 auto;
-    margin-top: 2px;
-    margin-bottom: 2px;
+/* Individual review cards */
+.reviewCard {
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    height: auto;
+    margin: 15px 0;
+    padding: 20px;
+
+    background: #97c9db;
     border: 2px solid #55acee;
-    border-radius: 4px;
-    background-color: #55acee;
-    padding: 10px;
-    min-height:60px;
-    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(54, 30, 1, 0.08);
+
+    overflow-wrap: anywhere;
 }
 
-.post:hover {
-    transition: border-color 0.2s ease-out;
-    border-color: rgba(255,255,255, 0.8);
-    transition: background-color 2.6s ease-out;
-    background-color: #66bfff;
+.reviewCard .songTitle {
+    margin: 0 0 12px;
+    color: #1c1100;
 }
 
-img.postFace {
-    margin-left: 25px;
-    margin-right: 10px;
-    height: 50px;
-    width: 50px;
-    border-radius: 4px;
-    margin-top:10px;
-    float:left;
+.reviewDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
 }
 
-h3.emptyPost {
-    width: 400px;
-    font-size: 1.5em;
-    margin: 0 auto;
+.reviewCard .genre {
+    color: #287bb5;
+    font-weight: bold;
+}
+
+.reviewCard .rating {
+    color: #935800;
+    font-weight: bold;
+}
+
+.reviewCard .description {
+    color: #291d00;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.reviewCard .postOwner {
+    margin-bottom: 0;
+    color: #686777;
+    font-size: 0.9em;
+}
+
+.reviewCard:hover {
+    background: #a8d5e5;
+    border-color: #f3efea;
+    transition: background-color 0.3s ease;
+}
+
+.emptyPost {
     text-align: center;
-    margin-top: 18px;
-}
-
-h3.postName {
-    float:left;
-    width: 200px;
-    font-weight: bold;
-    padding-left: 65px;
-    font-size: 1.5em;
-}
-
-h3.postAge {
-    float:right;
-    text-align: left;
-    width: 100px;
-    font-weight: bold;
-    padding-right: 40px;
-    font-size: 1.5em;
-}
-
-.post:first-child {
-    margin-top: 10px;
-}
-
-.post:last-child {
-    margin-bottom:10px;
+    padding: 15px;
 }
