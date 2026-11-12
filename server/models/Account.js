@@ -33,6 +33,16 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  securityAnswer: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  securityQuestion: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   displayName: {
     type: String,
     required: true,
@@ -54,6 +64,9 @@ AccountSchema.statics.toAPI = (doc) => ({
 
 // Helper function to hash a password
 AccountSchema.statics.generateHash = (password) => bcrypt.hash(password, saltRounds);
+
+//for changing password or security answer, we need to verify the hash of the old password/security answer
+AccountSchema.statics.verifyHash = (value, hash) => bcrypt.compare(value, hash);
 
 /* Helper function for authenticating a password against one already in the
    database. Essentially when a user logs in, we need to verify that the password
